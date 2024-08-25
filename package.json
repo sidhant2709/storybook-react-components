@@ -1,23 +1,34 @@
 {
   "name": "storybook-react-components",
-  "private": true,
   "version": "0.0.0",
-  "type": "module",
+  "description": "A collection of reusable components for React Storybook",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "*.js",
+    "*.d.ts"
+  ],
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "storybook dev -p 3001",
+    "build": "storybook build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "rollup": "rollup -c --bundleConfigAsCjs"
   },
   "dependencies": {
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "rollup": "^4.21.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.7.0",
     "@eslint/js": "^9.9.0",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
     "@storybook/addon-essentials": "^8.2.9",
     "@storybook/addon-interactions": "^8.2.9",
     "@storybook/addon-links": "^8.2.9",
@@ -34,10 +45,35 @@
     "eslint-plugin-react-refresh": "^0.4.9",
     "eslint-plugin-storybook": "^0.8.0",
     "globals": "^15.9.0",
+    "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
     "storybook": "^8.2.9",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "node": "./dist/index.js",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    },
+    "./manager": "./dist/manager.mjs",
+    "./preview": "./dist/preview.mjs",
+    "./package.json": "./package.json"
+  },
+  "bundler": {
+    "exportEntries": [
+      "src/index.ts"
+    ],
+    "managerEntries": [
+      "src/manager.ts"
+    ],
+    "previewEntries": [
+      "src/preview.ts"
+    ]
   },
   "eslintConfig": {
     "extends": [
